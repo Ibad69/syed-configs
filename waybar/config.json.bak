@@ -1,0 +1,35 @@
+// ~/.config/waybar/config
+  {
+    "layer": "top",
+    "position": "top",
+    "height": 30,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "battery", "tray"],
+  
+    "hyprland/workspaces": {
+      "on-click": "activate"
+    },
+    "clock": {
+      "format": "{:%A, %d %b  %I:%M %p}"
+    },
+    "pulseaudio": {
+      "format": "🔊 {volume}%",
+      "format-muted": "🔇"
+    },
+    "network": {
+      "format-wifi": "📶 {essid}",
+      "format-ethernet": "🔌 {ifname}",
+      "format-disconnected": "❌"
+    },
+    "battery": {
+      "format": "{capacity}% {icon}",
+      "format-icons": ["", "", "", "", ""],
+      "interval": 30
+    },
+    "tray": {
+      "icon-size": 16,
+      "spacing": 10
+    }
+  }
+  

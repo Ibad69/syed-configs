@@ -1,0 +1,71 @@
+# [colors.bright]
+# black = "#555753"
+# blue = "#6699cc"
+# cyan = "#66cccc"
+# green = "#99c794"
+# magenta = "#cc99cc"
+# red = "#ec5f67"
+# white = "#ffffff"
+# yellow = "#fac863"
+
+# [colors.normal]
+# black = "#1b1d1e"
+# blue = "#6699cc"
+# cyan = "#66cccc"
+# green = "#99c794"
+# magenta = "#cc99cc"
+# red = "#ec5f67"
+# white = "#d3d7cf"
+# yellow = "#fac863"
+
+# [colors.primary]
+# background = "#1e2a47"
+# foreground = "#c0c5ce"
+
+# [window]
+# opacity = 0.85
+
+[colors.primary]
+background = "#1a1b26"  # TokyoNight background
+foreground = "#c0caf5"  # TokyoNight foreground
+
+[colors.normal]
+black   = "#15161e"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#bb9af7"
+cyan    = "#7dcfff"
+white   = "#a9b1d6"
+
+[colors.bright]
+black   = "#414868"
+red     = "#f7768e"
+green   = "#9ece6a"
+yellow  = "#e0af68"
+blue    = "#7aa2f7"
+magenta = "#bb9af7"
+cyan    = "#7dcfff"
+white   = "#c0caf5"
+
+[colors.cursor]
+text = "CellBackground"
+cursor = "#c0caf5"
+
+[window]
+opacity = 0.85
+
+# [font]
+#   normal:
+#     family: "JetBrainsMono Nerd Font"  # or your preferred font
+#     style: Regular
+#   size: 13.0  # <--- change this value to increase/decrease font size
+
+[font.normal]
+family = "UbuntuMono"
+style = "Regular"
+
+[font]
+size = 15.5
+

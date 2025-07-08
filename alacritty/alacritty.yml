@@ -1,0 +1,30 @@
+# ~/.config/alacritty/alacritty.yml
+
+window:
+  opacity: 0.85  # Adjust transparency (1.0 is opaque, lower is more transparent)
+
+colors:
+  primary:
+    background: '#1e2a47'  # A dark bluish background
+    foreground: '#c0c5ce'  # Light gray-ish foreground, adjust as needed
+
+  normal:
+    black:   '#1b1d1e'
+    red:     '#ec5f67'
+    green:   '#99c794'
+    yellow:  '#fac863'
+    blue:    '#6699cc'  # Blue tones for normal text
+    magenta: '#cc99cc'
+    cyan:    '#66cccc'
+    white:   '#d3d7cf'
+
+  bright:
+    black:   '#555753'
+    red:     '#ec5f67'
+    green:   '#99c794'
+    yellow:  '#fac863'
+    blue:    '#6699cc'
+    magenta: '#cc99cc'
+    cyan:    '#66cccc'
+    white:   '#ffffff'
+

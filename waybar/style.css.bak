@@ -1,0 +1,47 @@
+
+/* ~/.config/waybar/style.css */
+
+* {
+    font-family: JetBrainsMono Nerd Font, sans-serif;
+    font-size: 13px;
+    border: none;
+    padding: 0 8px;
+    color: #ffffff;
+}
+
+window#waybar {
+    background-color: rgba(25, 25, 25, 0.95);
+    border-bottom: 2px solid #61afef;
+}
+
+#workspaces button {
+    background: transparent;
+    border: none;
+    padding: 0 10px;
+    color: #cccccc;
+}
+
+#workspaces button.active {
+    background: #61afef;
+    color: black;
+    border-radius: 4px;
+}
+
+#clock,
+#battery,
+#network,
+#pulseaudio,
+#tray {
+    background-color: #1e1e2e;
+    border-radius: 6px;
+    margin: 0 4px;
+}
+
+#battery.warning {
+    color: orange;
+}
+
+#battery.critical {
+    color: red;
+}
+
