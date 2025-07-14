@@ -1,12 +1,11 @@
 # Things I definitely need in my dev enviroment
 # ----------------------------------------------------
 # nvim installation
-pacman -S nvim
+pacman -S nvim fzf tmux ttf-nerf-fonts-symbols vlc rofi pavucontrol flameshot
 # nvm/node installation
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 nvm install --lts
 # tmux / tmux sessionzer script / tpm
-pacman -S tmux
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 # go installation maybe download the file and then install or make from source?
@@ -17,6 +16,13 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 pacman -S waybar
 # set waybar config
 pacman -S hyprpaper
+
+# setup vim command for nvim
+sudo ln -sf /usr/bin/nvim /usr/local/bin/nvim
+
+git clone https://aur.archlinux.org/yay.git
+yay -S wlogout
+
 
 # clone the wallpaper library
 # git clone https://github.com/dharmx/walls.git
