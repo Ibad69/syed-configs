@@ -1,6 +1,6 @@
 * {
-  font-family: JetbrainsMono Nerd Font;
-  font-size: 12px;
+  font-family: "UbuntuMono";
+  font-size: 15.5px;
   min-height: 0;
   padding-right: 2px;
   padding-left: 2px;
@@ -48,11 +48,13 @@ button {
 #pulseaudio,
 #network,
 #cpu,
+#disk,
 #memory,
 #custom-lock,
 #custom-power,
 #custom-weather,
 #custom-uptime,
+#custom-temperature,
 #custom-docker {
   background-color: #101010;
   padding: 0.5rem 1rem;
@@ -154,3 +156,24 @@ button {
 #custom-weather.error {
   color: #e78284; /* Red */
 }
+
+#disk {
+  /* background-color: #101010; */
+  /* padding: 0.5rem 1rem; */
+  /* margin: 5px 0; */
+  color: #f2cdcd;
+  /* border-radius: 5px; */
+}
+
+#custom-temperature{
+  color: #f2cdcd;
+}
+
+#custom-temperature.warm {
+  color: #e5c890; /* Yellow-ish */
+}
+
+#custom-temperature.hot {
+  color: #e78284; /* Red */
+}
+

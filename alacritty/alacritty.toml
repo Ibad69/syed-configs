@@ -26,7 +26,8 @@
 # opacity = 0.85
 
 [colors.primary]
-background = "#1a1b26"  # TokyoNight background
+# background = "#1a1b26"  # TokyoNight background
+background = "#000000"  # TokyoNight background
 foreground = "#c0caf5"  # TokyoNight foreground
 
 [colors.normal]
@@ -63,9 +64,13 @@ opacity = 0.85
 #   size: 13.0  # <--- change this value to increase/decrease font size
 
 [font.normal]
-family = "UbuntuMono"
+# family = "UbuntuMono Nerd Font"
+# style = "Regular"
+family = "Iosevka Nerd Font"
 style = "Regular"
 
 [font]
 size = 15.5
 
+[scrolling]
+history = 100000

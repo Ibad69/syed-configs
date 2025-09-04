@@ -31,3 +31,4 @@ vim.opt.termguicolors = true -- Enable 24-bit RGB colors (required for most colo
 vim.opt.winblend = 0         -- Transparency for floating windows (0 = fully opaque, 100 = fully transparent)
 vim.opt.pumblend = 0         -- Transparency for popup menus
 
+vim.opt.guicursor = "i:block"

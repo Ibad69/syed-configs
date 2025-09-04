@@ -1,0 +1,259 @@
+;; -*- lexical-binding: t -*-
+
+(setq custom-file "~/.emacs.custom")
+(setq evil-want-C-u-scroll t)
+
+(require 'evil)
+(evil-mode 1)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
+(global-display-line-numbers-mode 1)
+(setq display-line-numbers-type 'relative)
+(global-display-line-numbers-mode t)
+(load-theme 'deeper-blue t)
+(setq inhibit-startup-screen t)
+;;(ido-mode 1)
+;;(ido-everywhere 1)
+
+;; (use-package evil-nerd-commenter
+  ;; :bind
+  ;; (("M-;" . evilnc-comment-or-uncomment-lines)))
+;; (define-key evil-normal-state-map (kbd "SPC c") 'evilnc-comment-or-uncomment-lines)
+;; (define-key evil-visual-state-map (kbd "SPC c") 'evilnc-comment-or-uncomment-region)
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :config
+  ;; Normal mode: leader + c to comment line
+  (evil-define-key 'normal 'global
+    (kbd "SPC c") 'evilnc-comment-or-uncomment-lines)
+
+  ;; Visual mode: leader + c to comment selection
+  (evil-define-key 'visual 'global
+    (kbd "SPC c") 'evilnc-comment-or-uncomment-lines)
+ )
+
+(setq scroll-margin 8)          ;; keep 8 lines of context around cursor
+(setq scroll-conservatively 101) ;; don't recenter cursor unless necessary
+
+;;(setq evil-default-cursor t) ; use Emacs default cursor for all Evil states
+
+(setq evil-normal-state-cursor '(box "white")
+      evil-insert-state-cursor '(box "white")
+      evil-visual-state-cursor '(box "white")
+      evil-replace-state-cursor '(box "white")
+      evil-operator-state-cursor '(box "white")
+      evil-motion-state-cursor '(box "white")
+      evil-emacs-state-cursor '(box "white"))
+(setq-default cursor-type 'box) ; set cursor to block (▉)
+
+(with-eval-after-load 'lsp-mode
+  (define-key lsp-mode-map (kbd "gd") #'lsp-find-definition)
+  (define-key lsp-mode-map (kbd "gr") #'lsp-find-references)
+  (define-key lsp-mode-map (kbd "K")  #'lsp-hover)
+  (define-key lsp-mode-map (kbd "C-c r") #'lsp-rename) ;; <leader>rn
+  (define-key lsp-mode-map (kbd "C-c a") #'lsp-execute-code-action)) ;; <leader>ca
+
+
+
+
+(with-eval-after-load 'package (add-hook 'package-menu-mode-hook 'evil-normalize-keymaps))
+
+;; Adding `/path/to/simpc` to load-path so `require` can find it
+(add-to-list 'load-path "/home/bashtobits/bashToDev/c/simpc/simpc-mode/")
+;; Importing simpc-mode
+(require 'project)
+(require 'simpc-mode)
+;; Automatically enabling simpc-mode on files with extensions like .h, .c, .cpp, .hpp
+(add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
+
+(require 'package)
+
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")
+        ("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+
+(package-initialize)
+
+(require 'general)
+
+(use-package vertico
+  :ensure t
+  :init
+  (vertico-mode)
+)
+
+(use-package exec-path-from-shell
+  :ensure t
+  :config
+  (exec-path-from-shell-initialize))
+
+
+;; Use 'SPC' as leader key in normal and visual states (Evil mode)
+(general-create-definer my/leader-keys
+  :keymaps '(normal visual)
+  :prefix "SPC"
+  :global-prefix "C-SPC") ;; Optional: for non-evil fallback
+
+;;Example keybindings under the leader key
+(defun jhon/find-file-preview ()
+    (interactive)
+    let ((consult-ripgrep-command "rg --multiline --null --ignore-case --type org --line-buffered --color=always --max-columns=500 --no-heading --line-number . -e ARG OPTS"))
+      (consult-ripgrep))
+
+(defun my/consult-project-files-v1 ()
+  "Run `consult-find` from project root without prompting for it."
+  (interactive)
+  (let ((default-directory (or (when-let ((proj (project-current)))
+                                 (project-root proj))
+                               (vc-root-dir)
+                               default-directory)))
+    (call-interactively #'consult-find)))
+
+(defun my/consult-project-files ()
+  "Show all project files using `fd` and filter as you type."
+  (interactive)
+  (let ((default-directory (or (when-let ((proj (project-current)))
+                                 (project-root proj))
+                               (vc-root-dir)
+                               default-directory)))
+(consult-fd)))
+
+(defun my/vertico-project-files ()
+  "Use `find-file` via Vertico from the project root, listing all files upfront."
+  (interactive)
+  (let* ((project (project-current))
+         (root (if project (project-root project) default-directory))
+         (files (project-files (project-current)))
+         (file (completing-read "Project file: " files)))
+    (find-file (expand-file-name file root))))
+
+
+
+(defun my/consult-project-grep ()
+  "Run `consult-ripgrep` from the project root without prompting for it."
+  (interactive)
+  (let ((default-directory (or (when-let ((proj (project-current)))
+                                 (project-root proj))
+                               (vc-root-dir)
+                               default-directory)))
+    (call-interactively #'consult-ripgrep)))
+
+
+  ; Working with local files
+  ;;(jhon/leader-keys
+    ;;"f" '(:ignore t :which-key "Local files")
+    ;;"ff" '(consult-find :which-key "Find file within directory")
+    ;;"fg" '(consult-ripgrep :which-key "Grep over directory")
+    ;;"fp" '(jhon/find-file-preview :which-key "Find file within directory with preview")
+    ;;"fb" '(consult-buffer :which-key "Find buffer in other window")
+    ;;"fc" '(consult-theme :which-key "Change themes")
+  ;;)
+
+;; Set default font
+(set-face-attribute 'default nil
+                    :family "Iosevka Nerd Font"
+                    :height 155 ;; 15.5 * 10 
+                    :weight 'regular)
+
+;; for completions and other stuff
+;; Always show *compilation* buffer in a horizontal split at the bottom
+(add-to-list 'display-buffer-alist
+             '("\\*compilation\\*"
+               (display-buffer-reuse-window
+                display-buffer-in-side-window)
+               (side . bottom)
+               (window-height . 0.3)))  ;; 30% of frame height
+
+(defun my-find-file-from-root ()
+  "Find file starting at filesystem root."
+  (interactive)
+  (let ((default-directory "/home/bashtobits/"))
+    (call-interactively 'find-file)))
+
+;; (global-set-key (kbd "C-f") #'my-find-file-from-root)
+;; Bind in Evil normal state
+(with-eval-after-load 'evil
+  (evil-define-key 'normal 'global (kbd "C-f") 'my-find-file-from-root))
+
+
+(use-package vertico
+  :init
+  (vertico-mode))
+
+(use-package savehist
+  :init
+  (savehist-mode))
+
+;;(use-package orderless
+  ;;:init
+  ;;(setq completion-styles '(orderless)
+        ;;completion-category-defaults nil
+        ;;completion-category-overrides '((file (styles partial-orderless)))))
+
+(use-package orderless
+  :init
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles basic)))))
+
+(use-package marginalia
+  :after vertico
+  :init
+  (marginalia-mode))
+
+(use-package consult
+  :bind (("C-s" . consult-line)
+         ("C-x b" . consult-buffer)
+         ("M-y" . consult-yank-pop)
+	 (("C-x C-f" . consult-fd))
+     )
+         ;; Add more bindings as you prefer
+         )
+
+(use-package embark
+  :bind
+  (("C-." . embark-act)
+   ("C-;" . embark-dwim))
+  :init
+  (setq prefix-help-command #'embark-prefix-help-command))
+
+(use-package embark-consult
+  :after (embark consult))
+
+(use-package helpful
+  :custom
+  (describe-function-function #'helpful-callable)
+  (describe-variable-function #'helpful-variable)
+  :bind
+  (("C-h f" . helpful-callable)
+   ("C-h v" . helpful-variable)
+   ("C-h k" . helpful-key)
+   ("C-h x" . helpful-command)))
+
+(my/leader-keys
+  "f"  '(:ignore t :which-key "files")
+  "ff" '(find-file :which-key "find file")
+  "v" 'split-window-right        ;; vertical split
+  "s" 'split-window-below        ;; horizontal split
+  "h" 'windmove-left             ;; move to the left window
+  "l" 'windmove-right            ;; move to the right window
+  "j" 'windmove-down             ;; move to the window below
+  "k" 'windmove-up               ;; move to the window above
+  "q" 'delete-window
+  "fp" '(jhon/find-file-preview :which-key "Find file within directory with preview")
+  ;;"pf" 'my/vertico-project-files
+  "pf" '(find-file :which-key "find file")
+  "ps" '(my/consult-project-grep :which-key "project grep") 
+  "f"  'my-find-file-from-rootP
+  "pv" '((lambda ()
+          (interactive)
+          (let ((root (or (when-let ((proj (project-current)))
+                            (project-root proj))
+                          (vc-root-dir)
+                          default-directory)))
+            (dired root)))
+        :which-key "project view")
+)
+
