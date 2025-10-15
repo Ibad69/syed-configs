@@ -1,3 +1,4 @@
+
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -166,12 +167,16 @@
       :v "c" #'evilnc-comment-or-uncomment-lines
       :desc "Project view" "p v"
       (lambda ()
-	(interactive)
-	(let ((root (or (when-let ((proj (project-current)))
-			  (project-root proj))
-			(vc-root-dir)
-			default-directory)))
-	  (dired root)))
+        (interactive)
+        (dired default-directory)
+      )
+      ;; (lambda ()
+      ;;   (interactive)
+      ;;   (let ((root (or (when-let ((proj (project-current)))
+      ;;   		  (project-root proj))
+      ;;   		(vc-root-dir)
+      ;;   		default-directory)))
+      ;;     (dired root)))
       )
 
 
